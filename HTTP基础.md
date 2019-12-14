@@ -46,7 +46,8 @@ TCP提供了：
 
 ### 三次握手（建立连接）
 **三次握手示意图**
-![三次握手](./images/http/3hand.png)
+![三次握手](./images/http/3hand.jpg)
+
 - 第一次握手：Clien发送一个SYN段，并指明Client的初始序列号，即ISN(c)；此时Client处于 SYN_Send状态。
 	- Client发送网络包，Server收到了
 	- Server确认了：C发送正常，S接收正常
@@ -59,9 +60,9 @@ TCP提供了：
 - Server接收ACK报文之后，也处于establised状态，此时双方建立连接。
 
 ### 四次挥手（关闭连接）
-![四次挥手](./images/http/4hand.png)
+![四次挥手](./images/http/4hand.jpg)
 - 第一次挥手：Client发送一个 FIN 报文，报文中会指定一个序列号ISN(c)
-	- 此时Client处于FIN_WAIT1状态。
+	- 此时Client处于FIN_WAIT_1状态。
 - 第二次握手：Server收到 FIN 之后，会发送 ACK 报文，且把ISN(c) + 1 作为 ACK 报文的序列号值，表明已经收到Client的报文了
 	- 此时Server处于 CLOSE_WAIT状态。
 - 第三次挥手：如果Server也想断开连接了，和Client的第一次挥手一样，发给 FIN 报文，且指定一个序列号ISN(s)
