@@ -3,11 +3,11 @@
 git官网下载地址：<https://git-scm.com/>
 **全局配置& ssh key**
 本地配置用户名和邮箱
-	config --global user.name "你的用户名"
-	config --global user.email "你的邮箱"
+	git config --global user.name "你的用户名"
+	git config --global user.email "你的邮箱"
 生成ssh key: `ssh-keygen -t rsa -C "你的邮箱"`
 复制ssh key: `clip < ~/.ssh/id_rsa.pub`
-讲ssh key添加到github setting里的SSH and GPG keys
+将ssh key添加到github setting里的SSH and GPG keys
 ![ssh key](./images/git/ssh key.png)
 测试是否添加成功: `ssh -T git@github.com`
 **查看&删除配置**
