@@ -57,7 +57,7 @@ TCP提供了：
 - 第三次握手：Client接收SYN报文后，会发送一个 ACK 报文，为确认Server的SYN，Client将ISN(s)+1作为返回的ACK数值，表示自己已收到Server的SYN；此时Client处于establised状态。
 	- Client发包，Server收到了
 	- Server确认了：C发送/接收正常，S发送/接收正常
-- Server接收ACK报文之后，也处于establised状态，此时双方建立连接。
+- Server接收ACK报文之后，也处于establised状态，此时双方建立连接，可以开始数据传输
 
 ### 四次挥手（关闭连接）
 ![四次挥手](./images/http/4hand.jpg)
@@ -71,6 +71,8 @@ TCP提供了：
 	- 此时Client处于 TIME_WAIT 状态。需要过一阵子以确保Server收到自己的 ACK 报文之后才会进入 CLOSED 状态
 - Server收到 ACK 报文之后，就处于关闭连接了
 	- 此时处于 CLOSED 状态，连接关闭
+
+[三次握手&四次挥手博文参考](https://blog.csdn.net/maoxin604/article/details/81431805)
 
 ___
 ## HTTP请求
