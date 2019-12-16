@@ -66,7 +66,7 @@ ___
 ## git本地&远程仓库关联
 **本地&远程工作关联示意图**
 ![work steps](./images/git/work steps.png)
-### 现有本地仓库，后有远程仓库
+### 先有本地仓库，后有远程仓库
 - 初始化本地仓库: `git init [project-name]`
 *注：[project-name]表示新建一个文件夹为本地仓库*
 - 在github新建(同名)的空仓库或者选取已有远程仓库
