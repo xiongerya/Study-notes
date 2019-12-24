@@ -26,3 +26,17 @@
 
 语法：JSON.stringify(value\[, replacer\[, space]]) [MDN解析](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
 
+## Ajax和JSON
+Ajax请求json格式数据
+`var request = new XMLHttpRequest();`
+`request.open('get', url);`
+`request.responseType = 'json';`
+
+`request.onload = function(){`
+	`var json = request.response;`
+`};`
+
+`request.send();`
+此时的Ajax传输的json数据为原始数据结构，并非json字符串
+
+

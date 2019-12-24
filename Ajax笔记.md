@@ -27,7 +27,7 @@
 `request.open('get', url);`
 `request.responseType = 'text';`
 ` `
-`request.onload = function(code……){};`
+`request.onload = function(){code……};`
 ` `
 `request.send();`
 
