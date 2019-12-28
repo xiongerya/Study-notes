@@ -1,0 +1,32 @@
+# 常用vsCode插件
+- Auto Close Tag
+- Auto Rename Tag
+- Bebel JavaScript
+- Beautify
+- Bracket Pairs Colorizer
+- Code Runner
+- Code Spell Checker
+- Color Highlight
+- Color Picker
+- CSS Peek
+- Debugger for Chrome
+- Debugger for Firefox
+- ESLint
+- filesize
+- HTML CSS Support
+- HTML Snippets
+- HTMLHint
+- JavaScript(ES6) code snippets
+- JavaScript standardjs styled snippets
+- jQuery Code Snippets
+- Live Server
+- Markdown Preview Enhanced
+- Material Icon Theme
+- One Dark Pro
+- open in browser
+- Path Intellisense
+- Project Manager
+- Terminal
+- TODO Highlight
+- VSCode Map Preview
+- vscode-icons
