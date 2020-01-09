@@ -1,5 +1,5 @@
 # VUE学习笔记
-## Vue引用方式&基础格式
+## Vue引用方式
 **在html文件中引入Vue**
 - 开发环境版本：包含帮助的命令行警告
 	- `<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>` 
@@ -29,9 +29,23 @@
 - 元素选择可以使用css选择器，id/class/tag等选择器均可
 - data可以是JavaScript中任意的数据类型（基础/复杂数据类型）
 - data中的数据可以在el元素及其所有后代元素范围内使用
+- 应用在html标签中的{{ variable }}，称为插值表达式
 
 ___
-## Vue基础模板语法格式
+## Vue指令语法
+### v-cloak
+>用于解决插值表达式加载时出现的闪烁问题
+
+**html结构**
+`<div id="name" v-cloak>{{ message }</div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+
 ### v-text
 >相当于textContent，为元素添加文本内容
 
@@ -46,8 +60,9 @@ ___
 		`message: 'Hello World!',`
 	`}`
 `})`
+
 ### v-html
->相当于innerHTMLl属性，即可添加文本也可识别html标签
+>相当于innerHTML属性，即可添加文本也可识别html标签
 
 **html结构**
 `<div id="name" v-html="message"></div>`
@@ -58,30 +73,26 @@ ___
 		`message: '<h2>Hello World!</h2>',`
 	`}`
 `})`
-### v-on
->事件绑定，比如onclick/onmouseover等
+
+### v-bind
+> 设置html元素的属性（比如：src/title/class等）
 
 **html结构**
-`<div id="name" v-on:click="doThing"></div>`
+`<div id="name" v-bind:class="message"></div>`
 简写方式：
-`<div id="name" @click="doThing"></div>`
+`<div id="name" :class="message"></div>`
 表达式：
-`<div id="name" @click="message += '!'"></div>`
+`<div id="name" :class="message ? message : 'active'"></div>`
 **JavaScript结构**
 `var app = new Vue({`
 	`el: '#name',`
 	`data: {`
-		`message: 'Hello World!'`
-	`},`
-	`methods: {`
-		`doThing: function(){`
-			`message += "!";`
-		`}`
+		`message: 'active'`
 	`}`
-`})`
+`})
 ### v-show
 >决定html元素显示/隐藏，操纵css样式对性能消耗较小
->需要重复切换显示/隐藏元素时，使用v-show
+>需要重复切换显示/隐藏的元素时，使用v-show
 
 **html结构**
 布尔值
@@ -105,7 +116,7 @@ ___
 	`}`
 `})`
 ### v-if
->根据值判断元素显示/隐藏，操纵dom树对性能消耗较大
+>条件判断元素显示/隐藏，操纵dom树对性能消耗较大
 >隐藏时从dom树中移除，显示时重新添加到dom树中
 
 **html结构**
@@ -130,26 +141,8 @@ ___
 	`}`
 `})`
 
-### v-bind
-> 设置html元素的属性（比如：src/title/class等）
-
-
-**html结构**
-`<div id="name" v-bind:class="message"></div>`
-简写方式：
-`<div id="name" :class="message"></div>`
-表达式：
-`<div id="name" :class="message ? message : 'active'"></div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'active'`
-	`}`
-`})`
 ### v-for
-> 
-
+>循环结构展示所需数据据
 
 **html结构**
 `<div id="name">`
@@ -165,8 +158,45 @@ ___
 		`obj: [{name:"one"}, {name:"two"}]`
 	`}`
 `})`
-### v-mode
+### v-on
+>添加事件监听程序，比如onclick/onmouseover等
 
+**html结构**
+`<div id="name" v-on:click="doThing"></div>`
+简写方式：
+`<div id="name" @click="doThing"></div>`
+表达式：
+`<div id="name" @click="message += '!'"></div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!'`
+	`},`
+	`methods: {`
+		`doThing: function(){`
+			`message += "!";`
+		`}`
+	`}`
+`})`
+### v-mode
+>实现表单输入和应用状态之间的双向绑定
+
+**html结构**
+`<div id="name">`
+	`<input type="text" v-model="message" />`
+`</div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+___
+## Vue注册组件
+
+___
 ## Vue生命周期
 
 
