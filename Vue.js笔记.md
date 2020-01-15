@@ -12,6 +12,7 @@
 	`{{ message }}`
 	`{{ message + "!!!" }}`
 	`{{ person.name }}`
+	`This is a {{ person.name }}`
 `</div>`
 **JavaScript结构**
 `var app = new Vue({`
@@ -29,12 +30,25 @@
 - 元素选择可以使用css选择器，id/class/tag等选择器均可
 - data可以是JavaScript中任意的数据类型（基础/复杂数据类型）
 - data中的数据可以在el元素及其所有后代元素范围内使用
-- 应用在html标签中的{{ variable }}，称为插值表达式
+- 应用在html标签中的{{ message }}，称为**插值表达式**
 
 ___
 ## Vue指令语法
+### v-once
+>只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
+
+**html结构**
+`<div id="name" v-once>{{ message }</div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+
 ### v-cloak
->用于解决插值表达式加载时出现的闪烁问题
+>这个指令保持在元素上直到关联实例结束编译，用于解决插值表达式网络延迟时出现的闪烁问题。
 
 **html结构**
 `<div id="name" v-cloak>{{ message }</div>`
@@ -179,7 +193,7 @@ ___
 		`}`
 	`}`
 `})`
-### v-mode
+### v-model
 >实现表单输入和应用状态之间的双向绑定
 
 **html结构**
@@ -193,9 +207,31 @@ ___
 		`message: 'Hello World!',`
 	`}`
 `})`
+*当input表单元素内容改变时，message相应做出改变*
 ___
 ## Vue注册组件
+**html结构**
+`<div id="name">`
+	`<ul>`
+		`<todo-item v-for="item in foods" v-bind:todo="item" v-bind:key="item.id"></todo-item>`
+	`</ul>`
+`</div>`
+**JavaScript结构**
+`Vue.component('todo-item', {`
+	`'props': ['todo'],`
+	`'template': '<li>{{ todo.text }}</li>'`
+`})`
 
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+		`foods: [`
+			{id: 1, text: "111111"},
+			{id: 2, text: "222222"}
+		`]`
+	`}`
+`})`
 ___
 ## Vue生命周期
 
