@@ -34,32 +34,6 @@
 
 ___
 ## Vue指令语法
-### v-once
->只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
-
-**html结构**
-`<div id="name" v-once>{{ message }</div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'Hello World!',`
-	`}`
-`})`
-
-### v-cloak
->这个指令保持在元素上直到关联实例结束编译，用于解决插值表达式网络延迟时出现的闪烁问题。
-
-**html结构**
-`<div id="name" v-cloak>{{ message }</div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'Hello World!',`
-	`}`
-`})`
-
 ### v-text
 >相当于textContent，为元素添加文本内容
 
@@ -123,7 +97,7 @@ ___
     	`age: 19,`
 	`},`
 	`methods: {`
-		`//可以添加一个事件改变bool值`
+		`//添加一个事件改变bool值`
 		`doThing: function(){`
 			`this.bool = !this.bool;`
 		`}`
@@ -151,6 +125,10 @@ ___
 		`//可以添加一个事件改变bool值`
 		`doThing: function(){`
 			`this.bool = !this.bool;`
+		`}`
+		`//其他添加事件的方式`
+		`doIt(){`
+			`console.log("This is a test.")`
 		`}`
 	`}`
 `})`
@@ -194,7 +172,7 @@ ___
 	`}`
 `})`
 ### v-model
->实现表单输入和应用状态之间的双向绑定
+>实现表单输入和应用状态之间的双向绑定，便捷的获取和设置表单元素的值
 
 **html结构**
 `<div id="name">`
@@ -208,6 +186,48 @@ ___
 	`}`
 `})`
 *当input表单元素内容改变时，message相应做出改变*
+
+### v-once
+>只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
+
+**html结构**
+`<div id="name" v-once>{{ message }</div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+
+### v-cloak
+>这个指令保持在元素上直到关联实例结束编译，用于解决插值表达式网络延迟时出现的闪烁问题。
+
+**html结构**
+`<div id="name" v-cloak>{{ message }</div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+
+___
+## Vue修饰符
+**一般事件修饰符**
+eg：`<input @click.stop.once="" />`
+表示元素上点击事件触发时阻止冒泡行为，但仅阻止一次
+- `.stop`：阻止事件冒泡行为
+- `.prevent`：阻止默认事件 行为
+- `.capture`：添加事件侦听器时使用事件捕获模式
+- `.self`：事件只有在该元素上触发时才发生
+- `.once`：事件只执行一次
+
+**键盘事件修饰符**
+eg：`<input @keyup.enter="" />`
+表示当键盘点击的是enter键时，才执行该事件
+
 ___
 ## Vue注册组件
 **html结构**
@@ -217,7 +237,9 @@ ___
 	`</ul>`
 `</div>`
 **JavaScript结构**
+`//此处开始创建Vue自定义组件`
 `Vue.component('todo-item', {`
+	`//pros数组内的是自定义组件内部的attribute（属性）`
 	`'props': ['todo'],`
 	`'template': '<li>{{ todo.text }}</li>'`
 `})`
@@ -227,8 +249,8 @@ ___
 	`data: {`
 		`message: 'Hello World!',`
 		`foods: [`
-			{id: 1, text: "111111"},
-			{id: 2, text: "222222"}
+			`{id: 1, text: "111111"},`
+			`{id: 2, text: "222222"}`
 		`]`
 	`}`
 `})`
