@@ -11,13 +11,16 @@
 `<div id="name">`
 	`//插值表达式的用法`
 	`{{ message }}`
+	`This is {{ message }}`
 	`{{ message + "!!!" }}`
-	`This is a {{ person.name }}`
-	`{{ person.name }}`
+	`{{ message.split("").join(" ") }}`
+	`{{ person.name + message }}`
+	`{{ bool ? "yes" : "no" }}`
 	`//过滤器的使用`
-	`{{ message || addMsg }}``
+	`{{ message || addMsg }}`
 `</div>`
 **JavaScript结构**
+`//Vue对象私有作用域`
 `var app = new Vue({`
 	`//el => Vue对象作用的html对象范围`
 	`el: '#name',`
@@ -25,6 +28,7 @@
 	`//值可以是任何js数据类型，也可以是Vue对象之外的变量`
 	`//在Vue对象内部访问数据需要使用this：this.person`
 	`data: {`
+		`bool: true,`
 		`message: 'Hello World!',`
 		`person: {name: "Tom", age: 18}`
 	`},`
@@ -33,15 +37,17 @@
 	`methods: {`
 		`add: function(){code...},`
 		`delete(){code...}`
-	`}`
+	`},`
 	`//filters => Vue对象中的过滤器（私有过滤器）`
 	`//将传递的参数进行处理，只能用于插值表达式中`
 	`filters: {`
 		`formate: function(txt){ code... }`
 		`addMsg(msg){ code... }`
 	`}`
-`})`
+`});`
+`//Vue全局作用域`
 **注意事项**
+
 - 元素选择可以使用css选择器，id/class/tag等选择器均可
 - data可以是JavaScript中任意的数据类型（基础/复杂数据类型）
 - data中的数据可以在el元素及其所有后代元素范围内使用
