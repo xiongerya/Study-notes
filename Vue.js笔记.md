@@ -9,21 +9,36 @@
 **Vue模板语法格式**
 **html结构**
 `<div id="name">`
+	`//插值表达式的用法`
 	`{{ message }}`
 	`{{ message + "!!!" }}`
-	`{{ person.name }}`
 	`This is a {{ person.name }}`
+	`{{ person.name }}`
+	`//过滤器的使用`
+	`{{ message || addMsg }}``
 `</div>`
 **JavaScript结构**
 `var app = new Vue({`
+	`//el => Vue对象作用的html对象范围`
 	`el: '#name',`
+	`//data => Vue对象数据，采用键/值对的方式表示`
+	`//值可以是任何js数据类型，也可以是Vue对象之外的变量`
+	`//在Vue对象内部访问数据需要使用this：this.person`
 	`data: {`
 		`message: 'Hello World!',`
 		`person: {name: "Tom", age: 18}`
 	`},`
+	`//methods => Vue对象中的方法，可以传递参数`
+	`//与事件处理程序一起使用：v-on:click="add"`
 	`methods: {`
-		`m: function(){},`
-		`n: function(){}`
+		`add: function(){code...},`
+		`delete(){code...}`
+	`}`
+	`//filters => Vue对象中的过滤器（私有过滤器）`
+	`//将传递的参数进行处理，只能用于插值表达式中`
+	`filters: {`
+		`formate: function(txt){ code... }`
+		`addMsg(msg){ code... }`
 	`}`
 `})`
 **注意事项**
