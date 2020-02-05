@@ -6,8 +6,9 @@
 - 生产环境版本：优化了尺寸和速度
 	- `<script src="https://cdn.jsdelivr.net/npm/vue"></script>`
 
-**Vue模板语法格式**
+## Vue模板语法
 **html结构**
+`//html元素中使用Vue语法`
 `<div id="name">`
 	`//插值表达式的用法`
 	`{{ message }}`
@@ -20,7 +21,7 @@
 	`{{ message || addMsg }}`
 `</div>`
 **JavaScript结构**
-`//Vue对象私有作用域`
+`//新建Vue对象实例`
 `var app = new Vue({`
 	`//el => Vue对象作用的html对象范围`
 	`el: '#name',`
@@ -38,23 +39,25 @@
 		`add: function(){code...},`
 		`delete(){code...}`
 	`},`
-	`//filters => Vue对象中的过滤器（私有过滤器）`
+	`//filters => Vue对象中的局部过滤器`
 	`//将传递的参数进行处理，只能用于插值表达式中`
 	`filters: {`
 		`formate: function(txt){ code... }`
 		`addMsg(msg){ code... }`
+	`}，`
+	`//component => Vue对象中局部组件`
+	`component: {`
+		``
 	`}`
 `});`
-`//Vue全局作用域`
 **注意事项**
-
 - 元素选择可以使用css选择器，id/class/tag等选择器均可
 - data可以是JavaScript中任意的数据类型（基础/复杂数据类型）
 - data中的数据可以在el元素及其所有后代元素范围内使用
 - 应用在html标签中的{{ message }}，称为**插值表达式**
 
 ___
-## Vue指令语法
+## Vue指令介绍
 ### v-text
 >相当于textContent，为元素添加文本内容
 
@@ -251,32 +254,30 @@ eg：`<input @keyup.enter="" />`
 
 ___
 ## Vue注册组件
+### 全局组件注册
 **html结构**
-`<div id="name">`
-	`<ul>`
-		`<todo-item v-for="item in foods" v-bind:todo="item" v-bind:key="item.id"></todo-item>`
-	`</ul>`
-`</div>`
+`<todo-item title="title-1"></todo-item>`
 **JavaScript结构**
-`//此处开始创建Vue自定义组件`
 `Vue.component('todo-item', {`
 	`//pros数组内的是自定义组件内部的attribute（属性）`
-	`'props': ['todo'],`
-	`'template': '<li>{{ todo.text }}</li>'`
+	`'props': ['title'],`
+	`data: function(){`
+		`return {count: 0}`
+	`},`
+	`'template': '<p>{{ title }}</p>'`
 `})`
+### 局部组件注册
 
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'Hello World!',`
-		`foods: [`
-			`{id: 1, text: "111111"},`
-			`{id: 2, text: "222222"}`
-		`]`
-	`}`
-`})`
 ___
 ## Vue生命周期
+- beforeCreate()
+- created()
+- beforeMount()
+- mounted()
+- beforeUpdate()
+- updated()
+- beforeDestroy()
+- destroyed()
 
 
 [Vue官网学习](https://cn.vuejs.org/v2/guide/)
