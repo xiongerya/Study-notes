@@ -3,8 +3,8 @@
 git官网下载地址：<https://git-scm.com/>
 **全局配置& ssh key**
 本地配置用户名和邮箱
-	git config --global user.name "你的用户名"
-	git config --global user.email "你的邮箱"
+	git config --global [user.name] "你的用户名"
+	git config --global [user.email] "你的邮箱"
 生成ssh key: `ssh-keygen -t rsa -C "你的邮箱"`
 复制ssh key: `clip < ~/.ssh/id_rsa.pub`
 将ssh key添加到github setting里的SSH and GPG keys
@@ -29,7 +29,7 @@ ___
 ### 文件查看&添加&提交
 初始化办本地仓库: `git init [project-name]`
 查看全部文件状态: `git status`
-查看指定文件状态: `git status file-name`
+查看指定文件状态: `git status [file-name]`
 ![git-work](./images/git/status.png)
 添加全部新文件至暂存区: `git add .`或`git -A`
 添加指定新文件至暂存区: `git add file-name`
@@ -71,25 +71,25 @@ ___
 *注：[project-name]表示新建一个文件夹为本地仓库*
 - 在github新建(同名)的空仓库或者选取已有远程仓库
 - 复制远程仓库地址url（http/ssh）
-- 本地仓库关联远程: `git remote add origin url` 
+- 本地仓库关联远程: `git remote add origin [url]` 
 - 从远程仓库pull文件: `git pull origin master`
-（若远程仓库没有文件则跳过该步骤）
+（若远程仓库为空仓库则跳过该步骤）
 - 本地仓库上传远程: `git push origin master`
 （若首次上传远程使用: `git push -u origin master`）
 - 远程仓库关联完成，后续直接进行add-commit-push操作
 ### 先有远程仓库，后有本地仓库
 复制远程仓库地址url（http/ssh）
-- 克隆仓库到本地: `git clone url`
+- 克隆仓库到本地: `git clone [url]`
 - 无需关联，后续直接进行add-commit-push操作
 *注：若是需要克隆&修改其他人的远程仓库，需先fork后clone再执行add-commit-push操作*
 ### 远程仓库相关操作
 ![remote](./images/git/relationship.png)
 查看远程库信息 : `git remote`
 查看远程库详细信息/地址 : `git remote -v`
-查看指定远程仓库信息： `git remote show url`
-下载远程仓库所有变动：`git fetch url`
-新增一个远程仓库并命名：`git remote add name url`
-取回远程变化并与本地合并：`git pull url [branch]`
+查看指定远程仓库信息： `git remote show [url]`
+下载远程仓库所有变动：`git fetch [url]`
+新增一个远程仓库并命名：`git remote add name [url]`
+取回远程变化并与本地合并：`git pull [url] [branch]`
 
 ___
 ## git分支创建&合并等操作
