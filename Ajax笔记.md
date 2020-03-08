@@ -47,3 +47,4 @@
 *传递给 then() 是一段不会立即执行的代码 — 而是当返回响应时代码会被运行。*
 
 [MDN解析Ajax](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data)
+
