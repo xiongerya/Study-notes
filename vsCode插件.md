@@ -30,3 +30,4 @@
 - TODO Highlight
 - VSCode Map Preview
 - vscode-icons
+

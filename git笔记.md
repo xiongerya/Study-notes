@@ -1,4 +1,4 @@
-# git使用指南
+# Git使用指南
 ## git 安装&初始化配置
 git官网下载地址：<https://git-scm.com/>
 **全局配置& ssh key**

@@ -1,3 +1,0 @@
-# webFrontEnd-notes
-study notes
-
