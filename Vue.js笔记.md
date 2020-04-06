@@ -101,7 +101,46 @@ ___
 	`data: {`
 		`message: 'active'`
 	`}`
-`})
+`})`
+
+### v-model
+>实现表单输入和应用状态之间的双向绑定，便捷的获取和设置表单元素的值
+
+**html结构**
+`<div id="name">`
+	`<input type="text" v-model="message" />`
+`</div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+*当input表单元素内容改变时，message相应做出改变*
+
+### v-on
+>添加事件监听程序，比如onclick/onmouseover等
+
+**html结构**
+`<div id="name" v-on:click="doThing"></div>`
+简写方式：
+`<div id="name" @click="doThing"></div>`
+表达式：
+`<div id="name" @click="message += '!'"></div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!'`
+	`},`
+	`methods: {`
+		`doThing: function(){`
+			`message += "!";`
+		`}`
+	`}`
+`})`
+
 ### v-show
 >决定html元素显示/隐藏，操纵css样式对性能消耗较小
 >需要重复切换显示/隐藏的元素时，使用v-show
@@ -127,6 +166,7 @@ ___
 		`}`
 	`}`
 `})`
+
 ### v-if
 >条件判断元素显示/隐藏，操纵dom树对性能消耗较大
 >隐藏时从dom树中移除，显示时重新添加到dom树中
@@ -174,42 +214,6 @@ ___
 		`obj: [{name:"one"}, {name:"two"}]`
 	`}`
 `})`
-### v-on
->添加事件监听程序，比如onclick/onmouseover等
-
-**html结构**
-`<div id="name" v-on:click="doThing"></div>`
-简写方式：
-`<div id="name" @click="doThing"></div>`
-表达式：
-`<div id="name" @click="message += '!'"></div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'Hello World!'`
-	`},`
-	`methods: {`
-		`doThing: function(){`
-			`message += "!";`
-		`}`
-	`}`
-`})`
-### v-model
->实现表单输入和应用状态之间的双向绑定，便捷的获取和设置表单元素的值
-
-**html结构**
-`<div id="name">`
-	`<input type="text" v-model="message" />`
-`</div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'Hello World!',`
-	`}`
-`})`
-*当input表单元素内容改变时，message相应做出改变*
 
 ### v-once
 >只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
