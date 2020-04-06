@@ -35,8 +35,8 @@ html中对应blockquote标签
 html中对应code标签
 注意：单独使用\`\`需要转义
 `var time = new Date();`
-	console.log(time);
-	alert("string");
+	`console.log(time);`
+	`alert("string");`
 
 #### 水平线
 语法：三个以上的\*/\_/-，中间可以包含空格
@@ -78,6 +78,7 @@ ___
 #### 索引链接
 语法：
 [url][index]
+
 [index]:url
 #### 自动链接
 语法：\<url\>

@@ -34,7 +34,7 @@ response信息组成部分：状态行，消息报头，空行，响应正文
 
 - IP地址+端口号：`http://207.200.83.29:80/index.html`
 - 域名（主机名）`http://www.netscape.com:80/index.html`
-域名服务（Domain Name Service，DNS），可将主机名转换为IP地址。
+域名服务（Domain Name Service，DNS），可将主机名/域名转换为IP地址。
 
 ### TCP/IP（因特网传输协议）
 >TCP（Transmission Control Protocol）即传输控制协议，是一种面向连接的单播协议，在的发送数据前，通信双方彼此建立一条连接，即客户端和服务器在内存中保存一份关于对方的信息，如：ip地址/端口号等；IP（Internet Protocol）即网际协议。
@@ -48,15 +48,15 @@ TCP提供了：
 **三次握手示意图**
 ![三次握手](./images/http/3hand.jpg)
 
-- 第一次握手：Clien发送一个SYN段，并指明Client的初始序列号，即ISN(c)；此时Client处于 SYN_Send状态。
+- 第一次握手：Client发送一个SYN段，并指明Client的初始序列号，即ISN(c)；此时Client处于 SYN_Send状态。
 	- Client发送网络包，Server收到了
 	- Server确认了：C发送正常，S接收正常
-- 第二次握手：Server接收到Server的SYN报文后，发送自己的SYN段作为应答，同样指明自己的ISN(s)。为了确认Client的SYN，将ISN(c)+1作为ACK数值，表示自己已收到Client的SYN。这样，每发送一个SYN，序列号就会加1。如果有丢失的情况，则会重传；此时Server处于SYN_REVD状态。
+- 第二次握手：Server接收到Client的SYN报文后，发送自己的SYN段作为应答，同样指明自己的ISN(s)。为了确认Client的SYN，将ISN(c)+1作为ACK数值，表示自己已收到Client的SYN。这样，每发送一个SYN，序列号就会加1。如果有丢失的情况，则会重传；此时Server处于SYN_REVD状态。
 	- Server发包，Client收到了
 	- Client确认了：C发送/接受正常，S发送/接收正常
 - 第三次握手：Client接收SYN报文后，会发送一个 ACK 报文，为确认Server的SYN，Client将ISN(s)+1作为返回的ACK数值，表示自己已收到Server的SYN；此时Client处于establised状态。
 	- Client发包，Server收到了
-	- Server确认了：C发送/接收正常，S发送/接收正常
+	- Server确认了：C接收正常，S发送正常
 - Server接收ACK报文之后，也处于establised状态，此时双方建立连接，可以开始数据传输
 
 ### 四次挥手（关闭连接）
