@@ -58,35 +58,8 @@
 
 ___
 ## Vue指令介绍
-### v-text
->相当于textContent，为元素添加文本内容
 
-**html结构**
-`<div id="name" v-text="message"></div>`
-也可拼接字符：
-`<div id="name" v-text="message + 'good'"></div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: 'Hello World!',`
-	`}`
-`})`
-
-### v-html
->相当于innerHTML属性，即可添加文本也可识别html标签
-
-**html结构**
-`<div id="name" v-html="message"></div>`
-**JavaScript结构**
-`var app = new Vue({`
-	`el: '#name',`
-	`data: {`
-		`message: '<h2>Hello World!</h2>',`
-	`}`
-`})`
-
-### v-bind
+### v-bind：绑定元素属性
 > 设置html元素的属性（比如：src/title/class等）
 
 **html结构**
@@ -103,7 +76,7 @@ ___
 	`}`
 `})`
 
-### v-model
+### v-model：数据双向绑定
 >实现表单输入和应用状态之间的双向绑定，便捷的获取和设置表单元素的值
 
 **html结构**
@@ -119,7 +92,7 @@ ___
 `})`
 *当input表单元素内容改变时，message相应做出改变*
 
-### v-on
+### v-on：添加事件监听程序
 >添加事件监听程序，比如onclick/onmouseover等
 
 **html结构**
@@ -141,7 +114,36 @@ ___
 	`}`
 `})`
 
-### v-show
+
+### v-text：为元素添加textContent
+>相当于textContent，为元素添加文本内容
+
+**html结构**
+`<div id="name" v-text="message"></div>`
+也可拼接字符：
+`<div id="name" v-text="message + 'good'"></div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: 'Hello World!',`
+	`}`
+`})`
+
+### v-html：为元素添加innerHTML
+>相当于innerHTML属性，即可添加文本也可识别html标签
+
+**html结构**
+`<div id="name" v-html="message"></div>`
+**JavaScript结构**
+`var app = new Vue({`
+	`el: '#name',`
+	`data: {`
+		`message: '<h2>Hello World!</h2>',`
+	`}`
+`})`
+
+### v-show：控制元素的显示/隐藏
 >决定html元素显示/隐藏，操纵css样式对性能消耗较小
 >需要重复切换显示/隐藏的元素时，使用v-show
 
@@ -167,7 +169,7 @@ ___
 	`}`
 `})`
 
-### v-if
+### v-if：控制元素的显示/隐藏
 >条件判断元素显示/隐藏，操纵dom树对性能消耗较大
 >隐藏时从dom树中移除，显示时重新添加到dom树中
 
@@ -197,7 +199,7 @@ ___
 	`}`
 `})`
 
-### v-for
+### v-for：循环绑定数据
 >循环结构展示所需数据据
 
 **html结构**
@@ -215,7 +217,7 @@ ___
 	`}`
 `})`
 
-### v-once
+### v-once：仅渲染一次
 >只渲染元素和组件一次。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
 
 **html结构**
@@ -228,7 +230,7 @@ ___
 	`}`
 `})`
 
-### v-cloak
+### v-cloak：解决延迟闪烁
 >这个指令保持在元素上直到关联实例结束编译，用于解决插值表达式网络延迟时出现的闪烁问题。
 
 **html结构**
@@ -243,7 +245,7 @@ ___
 
 ___
 ## Vue修饰符
-**一般事件修饰符**
+### 一般事件修饰符
 eg：`<input @click.stop.once="" />`
 表示元素上点击事件触发时阻止冒泡行为，但仅阻止一次
 - `.stop`：阻止事件冒泡行为
@@ -252,7 +254,7 @@ eg：`<input @click.stop.once="" />`
 - `.self`：事件只有在该元素上触发时才发生
 - `.once`：事件只执行一次
 
-**键盘事件修饰符**
+### 键盘事件修饰符
 eg：`<input @keyup.enter="" />`
 表示当键盘点击的是enter键时，才执行该事件
 

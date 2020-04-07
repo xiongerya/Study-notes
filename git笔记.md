@@ -1,7 +1,7 @@
 # Git使用指南
 ## git 安装&初始化配置
 git官网下载地址：<https://git-scm.com/>
-**全局配置& ssh key**
+### 全局配置& ssh key
 本地配置用户名和邮箱
 	git config --global [user.name] "你的用户名"
 	git config --global [user.email] "你的邮箱"
@@ -10,7 +10,7 @@ git官网下载地址：<https://git-scm.com/>
 将ssh key添加到github setting里的SSH and GPG keys
 ![ssh key](./images/git/ssh key.png)
 测试是否添加成功: `ssh -T git@github.com`
-**查看&删除配置**
+### 查看&删除配置
 查看配置: `git config --list`或`git config -l`
 查看local配置: `git config --local  --list`
 查看global配置: `git config --global  --list`
@@ -66,7 +66,7 @@ ___
 ## git本地&远程仓库关联
 **本地&远程工作关联示意图**
 ![work steps](./images/git/work steps.png)
-### 先有本地仓库，后有远程仓库
+### 先本地仓库，后远程仓库
 - 初始化本地仓库: `git init [project-name]`
 *注：[project-name]表示新建一个文件夹为本地仓库*
 - 在github新建(同名)的空仓库或者选取已有远程仓库
@@ -77,7 +77,7 @@ ___
 - 本地仓库上传远程: `git push origin master`
 （若首次上传远程使用: `git push -u origin master`）
 - 远程仓库关联完成，后续直接进行add-commit-push操作
-### 先有远程仓库，后有本地仓库
+### 先远程仓库，后本地仓库
 复制远程仓库地址url（http/ssh）
 - 克隆仓库到本地: `git clone [url]`
 - 无需关联，后续直接进行add-commit-push操作
