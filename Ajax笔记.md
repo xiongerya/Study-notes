@@ -7,7 +7,7 @@
 - 页面更新速度更快，您不必等待页面刷新，这意味着该网站体验感觉更快，响应更快。
 - 每次更新都会下载更少的数据，这意味着更少地浪费带宽。
 
-## 基本的Ajax请求
+## Ajax请求
 ### XMLHttpRequest
 - 要开始创建XHR请求，需要使用 XMLHttpRequest() 的构造函数创建一个新的请求对象
 	- `var request = new XMLHttpRequest();`
@@ -47,4 +47,6 @@
 *传递给 then() 是一段不会立即执行的代码 — 而是当返回响应时代码会被运行。*
 
 [MDN解析Ajax](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data)
+
+## axios库
 

@@ -145,7 +145,7 @@ ___
 
 ### v-show：控制元素的显示/隐藏
 >决定html元素显示/隐藏，操纵css样式对性能消耗较小
->需要重复切换显示/隐藏的元素时，使用v-show
+>需要重复切换显示/隐藏的元素时，推荐使用v-show
 
 **html结构**
 布尔值
@@ -234,7 +234,7 @@ ___
 >这个指令保持在元素上直到关联实例结束编译，用于解决插值表达式网络延迟时出现的闪烁问题。
 
 **html结构**
-`<div id="name" v-cloak>{{ message }</div>`
+`<div id="name" v-cloak>{{ message }}</div>`
 **JavaScript结构**
 `var app = new Vue({`
 	`el: '#name',`
@@ -284,6 +284,5 @@ ___
 - updated()
 - beforeDestroy()
 - destroyed()
-
 
 [Vue官网学习](https://cn.vuejs.org/v2/guide/)
