@@ -12,6 +12,8 @@
 **基础结构**
 `<div id="app">`
 	`<p>{{ value }}</p>`
+	`<p>{{ "This is a" + value }}</p>`
+	`<p>This is a {{ value }}</p>`
 `</div>`
 `<script>`
 	`new Vue({`
@@ -180,9 +182,85 @@
 
 ### 响应式数据
 ### 自定义指令
-### computed（计算属性）
+### computed
+>计算属性：computed是基于它们的响应式依赖进行缓存的；介于data和methods之间，像访问data中数据一样访问它，但以methods中的方式定义，但不能传入参数。
+
+**基础结构**
+`<div id="app">{{ sum }}</div>`
+`<script>`
+	`new Vue({`
+		`el: "#app",`
+		`data: {`
+			`nums: [1, 2, 3]}`
+		`},`
+		`computed: {`
+			`sum(){return this.nums.reduce((a, b) => a + b, 0);}`
+		`}`
+	`})`
+`</script>`
+**注意**
+- methods的方法多次调用时，每次调用都会执行一次
+- computed的值多次调用时，代码只执行一次，每次调用使用缓存的值
+- computed的依赖（如data中的数据）发生变化时，代码再次执行
+
 ### watch（侦听器）
+>侦听器可以监听data/computed中属性的变化，需要监听的data/computed属性只需要在watch中设置的与其同名的属性即可，且可以传入参数
+
+**基础结构**
+`<div id="app">{{ name }}</div>`
+`<script>`
+	`new Vue({`
+		`el: "#app",`
+		`data: {`
+			`name: "Tom",`
+			`'obj: {age: 18}'
+		`},`
+		`watch: {`
+			`//val等于当前的this.name`
+			`nums(val, oldVal){...code},`
+			`//监听对象的某个属性`
+			`"obj.age"(){...code},`
+			`//监听整个对象，称作深度监听`
+			`obj(){`
+				`...code`
+				`deep: true`
+			}
+		`}`
+	`})`
+`</script>`
+**注意**
+- watch适合处理异步操作
+- watch可以传入参数，保存旧值
+- watch监听对象的某个属性，需要引号包裹
+- `deep:true`开启对整个对象的深度监听
+
 ### filters（过滤器）
+>filters处理数据的一种快捷方式。filters不能使用this来访问data的变量/methods的方法，时纯函数，通过传递参数的形式处理并输出数据。
+
+**基础结构**
+`<div id="app">{{ name | upperCase | add}}</div>`
+`<script>`
+	`new Vue({`
+		`el: "#app",`
+		`data: {`
+			`name: "Tom"`
+		`},`
+		`//局部定义的过滤器`
+		`filters: {`
+			`upperCase(str){ return str.toUpperCase()}，`
+			`add(str){ return "Hello, " + str}，`
+		`}`
+	`})`
+	`//全局定义的过滤器`
+    `Vue.filters("lowerCase", function(str){`
+        `return str.toLowerCase()`
+    `})`
+`</script>`
+**注意**
+- 可以叠加多个filters，使用顺序很重要
+- filters可以使代码重复少/易读/维护性更好
+- filters只可以在插值表达式/v-bind中使用
+
 ### ref访问元素
 ### 过渡和动画
 #### css过渡
