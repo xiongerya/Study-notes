@@ -3,15 +3,17 @@
 **在html文件中引入Vue**
 
 - 开发环境版本：包含帮助的命令行警告
-	- `<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>` 
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+```
 - 生产环境版本：优化了尺寸和速度
-	- `<script src="https://cdn.jsdelivr.net/npm/vue"></script>`
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+```
 
 ## Vue.js基础
 ### Template（模板）
 #### 插值表达式
-**基础结构**
-
 ```html
 <div id="app">
 	<p>{{ value }}</p>
@@ -52,7 +54,6 @@
 >根据条件判断成立与否，决定插入/移除html元素
 >使用v-if性能消耗较大，每次插入/移除元素时必须生成元素内部DOM树
 
-**基本结构**
 ```html
 <div v-if="data"></div>
 <div v-else-if="data"></div>
@@ -66,7 +67,6 @@
 >根据条件判断成立与否，决定显示/隐藏html元素
 >使用v-show性能消耗较小，相当于为元素设置display:none
 
-**基本结构**
 ```html
 <div v-show="data"></div>
 ```
@@ -77,7 +77,6 @@
 #### v-for
 >通过循环一个数组/对象，将其渲染（循环输出）到html页面上
 
-**基本结构**
 - v-for循环一个数组，i（数组索引）可省略
 ```html
 <ul>
@@ -99,7 +98,6 @@
 #### v-text
 >相当于为元素动态设置textContent属性值
 
-**基本结构**
 ```html
 <div v-text="data"></div>
 ```
@@ -111,7 +109,6 @@
 #### v-html
 >相当于为元素动态设置innerHTML属性值
 
-**基本结构**
 ```html
 <div v-html="data"></div>
 ```
@@ -123,7 +120,6 @@
 >属性绑定：将值绑定到html元素的属性上
 >单向数据绑定，值的变化会反映在绑定的元素属性上
 
-**基本结构**
 ```html
 <div v-bind:class="data"></div>
 //以对象形式将值绑定在属性上`
@@ -137,7 +133,6 @@
 #### v-model
 >双向绑定：将值绑定到html表单元素上，同时值会随着表单元素的更新而更新
 
-**基本结构**
 - input/textarea/select表单元素的双向绑定
 ```html
 <input type="text" v-model="data" />
@@ -161,7 +156,6 @@
 #### v-on
 >为html元素绑定DOM事件
 
-**基础结构**
 ```html
 <button v-on:click="method"></button>
 <button v-on:keyup.enter="method"></button>
@@ -179,7 +173,6 @@
 ### computed（计算）
 >computed是基于它们的响应式依赖进行缓存的；介于data和methods之间，像访问data中数据一样访问它，但以methods中的方式定义，但不能传入参数。
 
-**基础结构**
 ```html
 <div id="app">{{ sum }}</div>
 <script>
@@ -202,7 +195,6 @@
 ### watch（侦听器）
 >侦听器可以监听data/computed中属性的变化，需要监听的data/computed属性只需要在watch中设置的与其同名的属性即可，且可以传入参数
 
-**基础结构**
 ```vue
 <div id="app">{{ name }}</div>
 <script>
@@ -236,7 +228,6 @@
 ### filters（过滤器）
 >filters处理数据的一种快捷方式。filters不能使用this来访问data的变量/methods的方法，时纯函数，通过传递参数的形式处理并输出数据。
 
-**基础结构**
 ```vue
 <div id="app">{{ name | upperCase | add}}</div>
 <script>
@@ -265,7 +256,6 @@
 ### ref访问元素
 ## 过渡和动画
 ### css过渡&动画
-**基础结构**
 ```vue
 //transition组件包裹html元素
 <transition name="fade">
@@ -292,7 +282,6 @@
 - `{name}-leave-active`：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。
 - `{name}-eave-to`： 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。
 ### JavaScript动画
-**基础结构**
 ```
 <transition
     v-on:before-enter="beforeEnter"
