@@ -10,34 +10,45 @@
 ## Ajax请求
 ### XMLHttpRequest
 - 要开始创建XHR请求，需要使用 XMLHttpRequest() 的构造函数创建一个新的请求对象
-	- `var request = new XMLHttpRequest();`
+```js
+var request = new XMLHttpRequest();
+```
 - 使用 open() 方法来指定用于从网络请求资源的 HTTP request method , 以及url
-	- `request.open('get', url);`
+```js
+request.open('get', url);
+```
 - 接下来，设置我们期待的响应类型 —  这是由请求的 responseType 定义的(text/json/html等)
-	- `request.responseType = 'text';`
+```js
+request.responseType = 'text';
+```
 - 从网络获取资源是一个 asynchronous "异步" 操作, 这意味着您必须等待该操作完成（例如，资源从网络返回），然后才能对该响应执行任何操作，否则会出错,将被抛出错误。 XHR允许你使用它的 onload 事件处理器来处理这个事件 — 当onload 事件触发时（当响应已经返回时）这个事件会被运行。 发生这种情况时， response 数据将在XHR请求对象的响应属性中可用。
-	- `request.onload = function(){};`
+```js
+request.onload = function(){};
+```
 - XHR请求设置完成，通过send（）完成
-	- `request.send();`
+```js
+request.send();
+```
 
 ### Feach API
 将Feach代替为XHR方法对比：
 **XHR实现Ajax**
-`var request = new XMLHttpRequest();`
-`request.open('get', url);`
-`request.responseType = 'text';`
-` `
-`request.onload = function(){code……};`
-` `
-`request.send();`
+```js
+var request = new XMLHttpRequest();
+request.open('get', url);
+request.responseType = 'text';
 
+request.onload = function(){code……};
+request.send();
+```
 **Fetch实现Ajax**
-`fetch(url).then(function(response){
+```js
+fetch(url).then(function(response){
 	response.text().then(function(text){
 		code……
 	});
-});`
-
+});
+```
 流程对比：
 - 调用fetch()方法，将要获取的url传递给它。这相当于XHR中的request.open(),但不需要任何等效的send()方法。
 - 然后then()方法连接到了fetch()末尾-这个方法是Promises的一部分，是一个用于执行异步操作的现代JavaScript特性。fetch()返回一个promise，它将解析从服务器发回的响应。我们使用then()来运行一些后续代码，这是我们在其内部定义的函数。这相当于XHR版本中的onload事件处理程序。
