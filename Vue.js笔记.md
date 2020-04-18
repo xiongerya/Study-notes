@@ -272,7 +272,7 @@ app.a.splice(1);   //缩短数组
 			//对象定义：引用methods中的方法
 			c: {
                 //val和oldVal将作为参数隐式按序传入
-                hander: "add",
+                handler: "add",
                 //回调将会在侦听开始之后被立即调用
                 immediate: true,
                 //深度监听，回调会在任何被侦听的对象的 property 改变时被调用，不论其被嵌套多深
@@ -280,7 +280,7 @@ app.a.splice(1);   //缩短数组
             },
 			//对象定义：创建新的方法
 			d: {
-                hander: function(val, oldVal){...code},
+                handler: function(val, oldVal){...code},
                 immediate: true,
                 deep: true
             },
@@ -289,7 +289,7 @@ app.a.splice(1);   //缩短数组
                 "add",
                 function(val, oldVal){...code},
                 {
-                    hander: function(val, oldVal){...code},
+                    handler: function(val, oldVal){...code},
                     ...code
                 }
             ]

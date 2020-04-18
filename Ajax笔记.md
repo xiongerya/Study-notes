@@ -8,7 +8,7 @@
 - 每次更新都会下载更少的数据，这意味着更少地浪费带宽。
 
 ## Ajax请求
-### XMLHttpRequest
+### XHR
 - 要开始创建XHR请求，需要使用 XMLHttpRequest() 的构造函数创建一个新的请求对象
 ```js
 var request = new XMLHttpRequest();
@@ -30,7 +30,7 @@ request.onload = function(){};
 request.send();
 ```
 
-### Feach API
+### Feach
 将Feach代替为XHR方法对比：
 **XHR实现Ajax**
 ```js
@@ -38,14 +38,15 @@ var request = new XMLHttpRequest();
 request.open('get', url);
 request.responseType = 'text';
 
-request.onload = function(){code……};
+request.onload = function(){...code};
 request.send();
 ```
 **Fetch实现Ajax**
+
 ```js
 fetch(url).then(function(response){
 	response.text().then(function(text){
-		code……
+		...code
 	});
 });
 ```
@@ -60,4 +61,27 @@ fetch(url).then(function(response){
 [MDN解析Ajax](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data)
 
 ## axios库
-
+### axios API
+可以通过向 axios 传递相关配置来创建请求
+```js
+axios({
+  method: 'post',   //请求方法
+  url: '/user/12345',   //请求地址
+  data: {   /请求数据
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  }
+});
+```
+### axios 别名
+不必在配置中指定url、method、data 这些属性都
+```js
+axios.request(config)
+axios.get(url[, config])
+axios.delete(url[, config])
+axios.head(url[, config])
+axios.options(url[, config])
+axios.post(url[, data[, config]])
+axios.put(url[, data[, config]])
+axios.patch(url[, data[, config]])
+```
