@@ -1,6 +1,7 @@
 # Vue.js学习笔记
 ## Vue.js引用
 **在html文件中引入Vue**
+
 - 开发环境版本：包含帮助的命令行警告
 ```html
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -194,7 +195,8 @@ app.c = 2;   //
 app.b.age = 25;   //b.age === undenfined
 //使用Vue.set()方法添加响应式属性
 Vue.set(app.b, "age", 20)
-app.$set(app.b,'age',20)   //Vue.set()方法的别名
+//使用Vue.set()方法的别名
+app.$set(app.b,'age',20)  
 //Object.assign()为对象添加多个新属性
 app.b = Object.assign(
 	{},
@@ -232,6 +234,7 @@ app.a.splice(1);   //缩短数组
 		data: {
 			nums: [1, 2, 3]}
 		},
+        //computed主要用来封装复杂的逻辑
 		computed: {
 			sum(){return this.nums.reduce((a, b) => a + b, 0);}
 		}
@@ -239,7 +242,6 @@ app.a.splice(1);   //缩短数组
 </script>
 ```
 **注意**
-
 - methods的方法多次调用时，每次调用都会执行一次
 - computed的值多次调用时，代码只执行一次，每次调用使用缓存的值
 - computed的依赖（如data中的数据）发生变化时，代码再次执行
@@ -304,16 +306,16 @@ app.a.splice(1);   //缩短数组
 - watch可以传入参数，保存旧值
 
 ### filters（过滤器）
->filters处理数据的一种快捷方式。filters不能使用this来访问data的变量/methods的方法，时纯函数，通过传递参数的形式处理并输出数据。
+>filters处理数据的一种快捷方式。filters不能使用this来访问data的变量/methods的方法，是纯函数，通过传递参数的形式处理并输出数据。
 
 ```html
 <div id="app">{{ name | upperCase | add}}</div>
 <script>
-    //全局中定义的过滤器
+    //全局中定义的过滤器，需要在Vue实例创建之前定义
     Vue.filters("lowerCase", function(str){
         return str.toLowerCase()
     })
-    //在vue实例中定义过滤器
+    //在vue实例的filters属性中定义过滤器，仅该实例可以使用
 	new Vue({
 		el: "#app",
 		data: {
@@ -460,6 +462,7 @@ new Vue({
 ```
 **destoryed**
 在组件被销毁之后触发
+
 ```js
 new Vue({
 	el: "app",
@@ -472,20 +475,28 @@ new Vue({
 ```
 ## component(组件)
 ### 组件注册
+- 全局组件：在全局注册，需Vue实例创建之前定义，所有Vue实例中均可使用
 ```html
 ///在html中使用组件
-<element-ui></element-ui>
+<div id="app">
+    <element-ui></element-ui>
+</div>
+<script>
+//在全局中注册组件是可复用
+Vue.component("element-ui", {
+    template: "<p>正整数是：1， 2， 3，4……</p>"
+});
+//
+new Vue({el: "#app"})
+</script>
+```
+- 局部组件：在Vue实例内部注册的，局部组件仅该Vue实例中可以使用
+```html
 <div id="app">
     <component-a></component-a>
     <component-b></component-b>
 </div>
 <script>
-//在全局中注册组件
-Vue.component("element-ui", {
-    //template相当于一段innerHtml字符串
-    template: "<p>正整数是：1， 2， 3，4……</p>"
-});
-//在vue实例中注册组件
 //先通过一个普通的JavaScript对象定义组件
 let component1 = {...code},
     component2 = {...code};
@@ -493,7 +504,7 @@ new Vue({
     el: "#app",
     data: {},
     methods: {},
-    //然后将对象传递给component的属性
+    //然后将对象传递给components的属性
     components: {
         "component-a": component1,
         "component-b": component2
@@ -502,28 +513,42 @@ new Vue({
 //注意局部注册的组件在其子组件中不可用
 //如果希望component2在component1中可用
 //需要将代码改写为以下形式
-//let component1 = {...code},
-//    component2 = {
-//        compontents:{"compontent-b": component2},
-//        ...code
-//	  };
-//new Vue({
-//    el: "#app",
-//    data: {},
-//    methods: {},
-//    components: {
-//        "component-a": component1,
-//        ...code
-//    }
-//})
+let component1 = {...code},
+    component2 = {
+        compontents:{"compontent-b": component2},
+        ...code
+	  };
+new Vue({
+    el: "#app",
+    data: {},
+    methods: {},
+    components: {
+        "component-a": component1,
+        ...code
+    }
+})
 </script>
 ```
 ### 组件属性
-- **data**
-data返回一个包含了组件中定义数据的对象
-
+- **template**
+template是一串html字符串，相当于innerHTML，其中只能包含一个根元素
 ```html
-<element-ui></element-ui>
+<div is="app">
+    <element-ui></element-ui>
+</div>
+<script>
+Vue.component("element-ui", {
+	template: "<p>{{ message }} <span>{{ person.name }}</span></p>"
+})
+new Vue({el: "#app"});
+```
+
+- **data**
+data必须是一个函数，返回一个包含了组件中定义数据的对象，避免组件共享数据的问题
+```html
+<div is="app">
+    <element-ui></element-ui>
+</div>
 <script>
 Vue.component("element-ui", {
 	template: "<p>{{ message }} <span>{{ person.name }}</span></p>",
@@ -534,13 +559,16 @@ Vue.component("element-ui", {
 		}
 	}
 })
+new Vue({el: "#app"});
 </script>
 ```
 
 - **methods**
 methods定义了一系列方法，可在组件中使用
 ```html
-<element-ui></element-ui>
+<div id="app">
+    <element-ui></element-ui>
+</div>
 <script>
 Vue.component("element-ui", {
 	template: "<p v-on:click='say'>{{ message }}</p>",
@@ -556,14 +584,16 @@ Vue.component("element-ui", {
 		}
 	}
 })
+new Vue({el: "#app"});
 </script>
 ```
 
 - **computed**
 computed计算并缓存组件中的数据，只有当数据改变时才重新计算
-
 ```html
-<element-ui></element-ui>
+<div id="app">
+    <element-ui></element-ui>
+</div>
 <script>
 Vue.component("element-ui", {
 	template: "<p>奇数的个数为：{{ odd.length }}</p>",
@@ -578,16 +608,19 @@ Vue.component("element-ui", {
 		}
 	}
 })
+new Vue({el: "#app"});
 </script>
 ```
 
 - **props**
 props传递数据，由element-ui向组件内部传递数据
 ```html
-//使用element-ui的属性上传递数据到组件内
-<element-ui color="red"></element-ui>
-//使用v-bind动态向组件内部传递数据
-<element-ui v-bind:title="red"></element-ui>
+<div id="app">
+    //使用element-ui的属性上传递数据到组件内
+    <element-ui color="red"></element-ui>
+    //使用v-bind动态向组件内部传递数据
+    <element-ui v-bind:title="red"></element-ui>
+</div>
 <script>
 Vue.component("element-ui", {
 	template: "<p v-bind:style='style1'>{{ message }} <span>{{ title }}</span></p>",
@@ -605,11 +638,14 @@ Vue.component("element-ui", {
 		}
 	}
 })
+new Vue({el: "#app"});
 </script>
 ```
 props验证数据，为传入的数据指定类型，类型不符会抛出警告
 ```html
-<element-ui price="123" unit="'$'"></element-ui>
+<div id="app">
+    <element-ui price="123" unit="'$'"></element-ui>
+</div>
 <script>
 Vue.component("element-ui", {
     template: "<p>{{ price }}</p>",
@@ -633,6 +669,7 @@ Vue.component("element-ui", {
     //    }
 	//}
 })
+new Vue({el: "#app"});
 </script>
 ```
 
