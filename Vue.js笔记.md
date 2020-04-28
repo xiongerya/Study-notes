@@ -59,7 +59,7 @@
 <div v-else-if="data"></div>
 <div v-else="data"></div>
 ```
-**注意**
+注意
 - v-if与JavaScript中的if结构类似，else-if和else可以省略
 - data可以是JS数据/表达式/vue实例data对象中的变量
 
@@ -70,8 +70,7 @@
 ```html
 <div v-show="data"></div>
 ```
-**注意**
-
+注意
 - data可以是JS数据/表达式/vue实例data对象中的变量
 - 元素频繁切换显示/隐藏状态时，推荐使用v-show
 
@@ -87,7 +86,7 @@
 - v-for循环一个对象，key（对象属性）可省略
 ```html
 <ul>
-	<li v-for="(value, key) in obj">{{ value }}</li>
+	<li v-for="(value, key, i) in obj">{{ value }}</li>
 </ul>
 ```
 - v-for实现简单的计数器，n从1开始计数
@@ -103,7 +102,7 @@
 ```html
 <div v-text="data"></div>
 ```
-**注意**
+注意
 - data可以是JS数据/表达式/vue实例data对象中的变量
 - v-text之后，插值表达式不会生效
 
@@ -113,7 +112,7 @@
 ```html
 <div v-html="data"></div>
 ```
-**注意**
+注意
 - data可以是JS数据/表达式/vue实例data对象中的变量
 - v-html之后，插值表达式不会生效
 
@@ -126,22 +125,25 @@
 //以对象形式将值绑定在属性上`
 <div v-bind:class="{data: exp}"></div>
 ```
-**注意**
+注意
 - `v-bind:class`简写形式为`:class`
 - 以对象形式绑定值时，根据exp判断值是否会绑定在属性上
 
 #### v-model
 >双向绑定：将值绑定到html表单元素上，同时值会随着表单元素的更新而更新
 
-- input/textarea/select表单元素的双向绑定
+**input/textarea/select表单元素的双向绑定**
+
 ```html
 <input type="text" v-model="data" />
 ```
-**注意**
-	- 使用v-model时，表单元素的初始值需要在vue实例的data对象中设置
-	- 如果设置了value/checked/selected属性值，则这些属性值会被忽略
-	- v-model之后，插值表达式不会生效
-- radio（单选框）数据的双向绑定
+注意
+- 使用v-model时，表单元素的初始值需要在vue实例的data对象中设置
+- 如果设置了value/checked/selected属性值，则这些属性值会被忽略
+- v-model之后，插值表达式不会生效
+
+**radio（单选框）数据的双向绑定**
+
 ```html
 <div>
 	<label><input type="radio" v-model="data" value="1">1</label>
@@ -149,9 +151,9 @@
 	<label><input type="radio" v-model="data" value="3">1</label>
 </div>
 ```
-**注意**
-	- 同一个v-model会对应多个不同的元素，其name属性也会被忽略
-	- v-model的值即当前选中的单选框的value属性值
+注意
+- 同一个v-model会对应多个不同的元素，其name属性也会被忽略
+- v-model的值即当前选中的单选框的value属性值
 
 #### v-on
 >为html元素绑定DOM事件
@@ -160,12 +162,13 @@
 <button v-on:click="method"></button>
 <button v-on:keyup.enter="method"></button>
 ```
-**注意**
+注意
 - `v-on:click`简写形式为`@click`
 - method可以是一段JS代码/vue实例methods对象的方法
 - v-on可以为元素绑定多个DOM事件，并可以添加修饰符
 
-**修饰符**
+### 事件修饰符
+
 - 事件修饰符：`.stop`，`.prevent`，`.capture`，`.self`，`.once`，`.passive`
 - 按键修饰符：`.enter`，`.tab`，`.delete`，`.esc`，`.up`，`.down`，`.left`，`.right`，按键码等
 - 系统修饰符：`.ctrl`，`.alt`，`.shift`，`.meta`，`.exact`，`.left`，`.middle`，`.right`
@@ -241,7 +244,7 @@ app.a.splice(1);   //缩短数组
 	})
 </script>
 ```
-**注意**
+注意
 - methods的方法多次调用时，每次调用都会执行一次
 - computed的值多次调用时，代码只执行一次，每次调用使用缓存的值
 - computed的依赖（如data中的数据）发生变化时，代码再次执行
@@ -301,7 +304,7 @@ app.a.splice(1);   //缩短数组
 	})
 </script>
 ```
-**注意**
+注意
 - watch适合处理异步操作
 - watch可以传入参数，保存旧值
 
@@ -312,7 +315,7 @@ app.a.splice(1);   //缩短数组
 <div id="app">{{ name | upperCase | add}}</div>
 <script>
     //全局中定义的过滤器，需要在Vue实例创建之前定义
-    Vue.filters("lowerCase", function(str){
+    Vue.filter("lowerCase", function(str){
         return str.toLowerCase()
     })
     //在vue实例的filters属性中定义过滤器，仅该实例可以使用
@@ -328,10 +331,87 @@ app.a.splice(1);   //缩短数组
 	})
 </script>
 ```
-**注意**
+注意
 - 可以叠加多个filters，要注意使用顺序
 - filters可以使代码重复少/易读/维护性更好
-- filters只可以在插值表达式/v-bind中使用
+- filters只可以在插值表达式和v-bind中使用
+
+### directives(指令)
+>directives用来创建自定义指令，内部包含一系列钩子函数。即可以用于全局自定义指令，也可用于局部自定义指令的创建。
+>
+```html
+<div id="app">
+    <input type="text" v-foucs />
+    <input type="text" v-hide />
+</div>
+<script>
+    //定义一个全局的v-focus新定义指令
+    //全局自定义指令需要在vue实例之前创建
+    Vue.directive("focus", {
+		inserted: function(el){
+            el.foucus();
+        }
+    })
+    //简写形式：在 bind 和 update 时触发相同行为，而不关心其它的钩子
+    Vue.directive('color-swatch', function (el, binding) {
+      el.style.backgroundColor = binding.value
+    })
+    //定义一个局部自定义指令
+    new Vue({
+        el: "#app",
+        data: {},
+        directives: {
+            hide: {
+                inserted: function(el){ el.style.display = "none"}
+            }
+        }
+    })
+
+</script>
+```
+钩子函数
+- bind：只调用一次，指令第一次绑定到元素时调用
+- inserted：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中）
+- update： 所在组件的 VNode 更新时调用，**但是可能发生在其子 VNode 更新之前**。指令的值可能发生了改变，也可能没有。
+- componentUpdated： 指令所在组件的 VNode **及其子 VNode** 全部更新后调用 
+- unbind： 只调用一次，指令与元素解绑时调用
+
+钩子函数参数
+- `el`：指令所绑定的元素，可以用来直接操作 DOM。
+- `binding`：一个对象，包含以下 property：
+  - `name`：指令名，不包括 `v-` 前缀。
+  - `value`：指令的绑定值，例如：`v-my-directive="1 + 1"` 中，绑定值为 `2`。
+  - `oldValue`：指令绑定的前一个值，仅在 `update` 和 `componentUpdated` 钩子中可用。无论值是否改变都可用。
+  - `expression`：字符串形式的指令表达式。例如 `v-my-directive="1 + 1"` 中，表达式为 `"1 + 1"`。
+  - `arg`：传给指令的参数，可选。例如 `v-my-directive:foo` 中，参数为 `"foo"`。
+  - `modifiers`：一个包含修饰符的对象。例如：`v-my-directive.foo.bar` 中，修饰符对象为 `{ foo: true, bar: true }`。
+- `vnode`：Vue 编译生成的虚拟节点。移步 [VNode API](https://cn.vuejs.org/v2/api/#VNode-接口) 来了解更多详情。
+- `oldVnode`：上一个虚拟节点，仅在 `update` 和 `componentUpdated` 钩子中可用。
+
+### config(全局配置)
+> `Vue.config` 是一个对象，包含 Vue 的全局配置
+
+```html
+<div id="app">
+    <input type="button" />
+</div>
+<script>
+    //取消 Vue 所有的日志与警告
+    Vue.config.silent = true;
+    //给 v-on 自定义键位别名
+    Vue.config.keyCodes.f2 = 113;
+    Vue.config.keyCodes = {
+      v: 86,
+      f1: 112,
+      // camelCase 不可用
+      mediaPlayPause: 179,
+      // 取而代之的是 kebab-case 且用双引号括起来
+      "media-play-pause": 179,
+      up: [38, 87]
+    }
+</script>
+```
+[全局配置API](https://cn.vuejs.org/v2/api/#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE)
 
 ### 特殊的attribute
 - key：用在 Vue 的虚拟 DOM 算法
@@ -342,11 +422,22 @@ app.a.splice(1);   //缩短数组
 ```
 - ref：用来给元素或子组件注册引用信息
 ```html
-<!-- `vm.$refs.p` will be the DOM node -->
-<p ref="p">hello</p>
-
-<!-- `vm.$refs.child` will be the child component instance -->
-<child-component ref="child"></child-component>
+<div id="app">
+    <p ref="p">hello</p>
+	<child-component ref="child"></child-component>
+</div>
+<script>
+    new Vue({
+        el: "#app",
+        data: {},
+        methods: {
+            alert(){
+                this.$refs.p.style.color = "red";
+                alert("hello");
+            }
+        }
+    })
+</script>
 ```
 - is：用于动态组件且基于 DOM 内模板的限制来工作
 ```html
@@ -364,7 +455,7 @@ app.a.splice(1);   //缩短数组
 ![lifecycle](./images/vue/lifecycle.png)
 ### create
 **beforeCreate**
-在vue实例初始化之前被触发
+vue实例初始化，但是data和methods等数据尚未初始化
 
 ```js
 new Vue({
@@ -377,7 +468,8 @@ new Vue({
 })
 ```
 **created**
-在vue实例初始化之后，被添加到DOM之前触发
+data和methods等数据已被初始化，被添加到DOM之前触发
+如果要调用methods中的方法，最早只能在created中操作
 
 ```js
 new Vue({
@@ -404,7 +496,7 @@ new Vue({
 })
 ```
 **mounted**
-在元素被创建之后触发（但不一定已经添加到DOM，可以使用nextTick来保证）
+在元素被创建之后触发（但不一定已添加到DOM，可以使用nextTick来保证）
 
 ```js
 new Vue({
@@ -450,6 +542,7 @@ new Vue({
 ### destroy
 **beforeDestroy**
 在组件即将被销毁并且从DOM上移除时触发
+
 ```js
 new Vue({
 	el: "app",
@@ -523,12 +616,32 @@ new Vue({
     data: {},
     methods: {},
     components: {
-        "component-a": component1,
-        ...code
+        "component-a": component1
     }
 })
 </script>
 ```
+- `Vue.extend()`创建全局组件
+```html
+<div id="mount-point"></div>
+<script>
+    // 创建构造器
+    let Profile = Vue.extend({
+      template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>',
+      //data必须是函数，避免数据共享问题
+      data: function () {
+        return {
+          firstName: 'Walter',
+          lastName: 'White',
+          alias: 'Heisenberg'
+        }
+      }
+    })
+    // 创建 Profile 实例，并挂载到一个元素上。
+    new Profile().$mount('#mount-point')
+</script>
+```
+
 ### 组件属性
 - **template**
 template是一串html字符串，相当于innerHTML，其中只能包含一个根元素
@@ -612,33 +725,58 @@ new Vue({el: "#app"});
 </script>
 ```
 
-- **props**
-props传递数据，由element-ui向组件内部传递数据
+### slot(插槽)
+
+```html
+
+```
+
+### 组件传值
+父组件向子组件传值（data/methods）
+`props`和element-ui上属性向组件内部传递数据
+`v-bind`和`props`可以通过element-ui向组件传递实例中的data
+`v-on`和`this.$emit()`可以通过element-ui向组件传递实例中的methods
 ```html
 <div id="app">
     //使用element-ui的属性上传递数据到组件内
     <element-ui color="red"></element-ui>
     //使用v-bind动态向组件内部传递数据
-    <element-ui v-bind:title="red"></element-ui>
+    <element-ui color="green" v-bind:title="msg"></element-ui>
+    //使用v-on动态向组件内部传递方法
+    <element-ui color="yellow" v-on:func="alert"></element-ui>
 </div>
 <script>
 Vue.component("element-ui", {
-	template: "<p v-bind:style='style1'>{{ message }} <span>{{ title }}</span></p>",
+	template: "<p v-bind:style='style1' @click='alert1'> {{ message }} <span>{{color}}</span> <span>{{ title }}</span> </p>",
 	//props数组包含与element-ui属性同名的字符串
-	props: ['color', 'title'],
+	props: ['color','title'],
 	data(){
 		return {
 			message: "Hello",
 			person: {name: "Tom", age: 20}
 		}
 	},
+    //methods中的this.emit()方法传递方法
+    methods: {
+        alert1: function(){
+            this.$emit('func')
+        }
+    }
 	computed: {
 		style1(){
 			return {backgroundColor: this.color};
 		}
 	}
 })
-new Vue({el: "#app"});
+new Vue({
+    el: "#app",
+    data: {
+        msg: "Hello World"
+    },
+    methods: {
+        alert(){alert(this.msg)}
+    }
+});
 </script>
 ```
 props验证数据，为传入的数据指定类型，类型不符会抛出警告
@@ -704,10 +842,12 @@ new Vue({
 ### 绑定style
 ```html
 //对象语法v-bind绑定style改变元素样式
+//对象中：属性/键为驼峰写法的样式属性，值为样式属性对应的值
 <div id="app" v-bind:style="{color: 'red', fontWeight: 'bold'}"></div>
 <div id="app" v-bind:style="style1"></div>
 <div id="app" v-bind:style="style2"></div>
 //数组语法v-bind绑定style改变元素样式
+//数组中是一个个包含样式语法的对象
 <div id="app" v-bind:style="[style1, style2]"></div>
 //多重值绑定，设置浏览器最终支持的值
 <div id="app" v-bind:style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
@@ -773,7 +913,7 @@ new Vue({
 	<div v-if="data">message</div>
 </transition>
 ```
-**JS动画钩子**html
+JS动画钩子
 - `beforeEnter`：动画开始前被触发，设置合适的初始值
 - `enter`：动画开始时被触发，运行动画，并使用done回调表明动画已完成
 - `afterEnter`：动画执行完成时被触发
@@ -788,7 +928,6 @@ new Vue({
 ```html
 
 ```
-
 
 [Vue官网学习](https://cn.vuejs.org/v2/guide/)
 
