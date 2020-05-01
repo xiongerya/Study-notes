@@ -572,11 +572,11 @@ new Vue({
 ```html
 ///在html中使用组件
 <div id="app">
-    <element-ui></element-ui>
+    <element1></element1>
 </div>
 <script>
 //在全局中注册组件是可复用
-Vue.component("element-ui", {
+Vue.component("element1", {
     template: "<p>正整数是：1， 2， 3，4……</p>"
 });
 //
@@ -726,9 +726,105 @@ new Vue({el: "#app"});
 ```
 
 ### slot(插槽)
+>slot插槽是用于向组件传递内容的，分为默认插槽/具名插槽/做由于插槽。
+>vue2.6中使用v-slot指令（简写为#），取代了原先的slot和slot-scope属性。
 
+- v-slot示例，v-slot只能在`template`上使用
 ```html
-
+<div id="app">
+    <!--默认插槽-->
+	<element1>
+        <!--默认default可以省略-->
+		<template v-slot:default>
+            <p>This is a element1</p>
+        </template>
+	</element1>
+    <!--具名插槽:拥有名称的slot，允许一个组件拥有多个插槽-->
+    <element2>
+        <!--简写为#header-->
+		 <template v-slot:header>
+            <p>This is elemen2</p>
+        </template>
+	</element2>
+     <!--作用域插槽:在作用域上绑定属性来将子组件的信息传给父组件使用 -->  
+     <element3>
+        <!--简写为#footer="slotPros"-->
+		 <template v-slot:footer="user">
+            <p>This is {{user.name}}</p>
+        </template>
+	</element3>  
+</div>
+<script>
+Vue.component('element1', {
+	template: '<p>This is : <slot>默认内容</slot></p>'
+})
+Vue.component('element2', {
+	template: '<p>This is : <slot name="header">默认内容</slot></p>'
+})
+Vue.component('element3', {
+	template: '<p>This is : <slot name="footer" v-bind:user="user">默认内容</slot></p>',
+    data: () => ({
+        user: {name: "Bob"}
+    })
+})
+new Vue({
+	el: "#app"
+})
+</script>
+```
+- slot示例（已废弃）
+```html
+<div id="app">
+    <!--默认插槽-->
+    <element1>
+        <p>This is a element1</p>
+    </element1>
+    <!--使用template标签包裹-->
+	<element1>
+		<template>
+            <p>This is a element1</p>
+        </template>
+	</element1>
+    <!--具名插槽-->
+    <element2>
+        <p slot="header">This is element2.</p>
+	</element2>
+    <!--使用template标签包裹-->
+    <element2>
+        <!--简写为#header-->
+		 <template slot="header">
+            <p>This is element2.</p>
+        </template>
+	</element2>
+     <!--作用域插槽-->
+    <element3>
+        <p slot-scope="person">This is {{person.name}}</p>
+	</element3>  
+    <!--使用template标签包裹-->
+     <element3>
+        <!--简写为#footer="slotPros"-->
+		 <template slot-scope="user">
+            <p>This is {{user.name}}</p>
+        </template>
+	</element3>  
+</div>
+<script>
+Vue.component('element1', {
+	template: '<p>This is : <slot>默认内容</slot></p>'
+})
+Vue.component('element2', {
+	template: '<p>This is : <slot name="header">默认内容</slot></p>'
+})
+Vue.component('element3', {
+	template: '<p>This is : <slot name="footer" v-bind:user="user">默认内容</slot></p>',
+    data: () => ({
+        user: {name: "Bob"}
+    })
+})
+new Vue({
+	el: "#app"
+})
+</script>
 ```
 
 ### 组件传值
@@ -808,6 +904,73 @@ Vue.component("element-ui", {
 	//}
 })
 new Vue({el: "#app"});
+</script>
+```
+### vue-loader
+>vue-loader是书写组件的另一种方式，在.vue文件中书写组件，并且可以定义样式style
+
+- 一般组件的注册
+```html
+<script>
+Vue.component('element1', {
+    tempalate: '<p>This is a {{number}}</p>',
+    props: {
+        number: {
+            type: number,
+            required: true
+        }
+    },
+    data: () => ({
+        person: {...code}
+    })
+})
+new Vue({
+    el: "#app"
+})
+</script>
+```
+- vue-loader组件的注册
+```vue
+//在.vue文件名相当于组件名，即element1.vue
+<tempalate>
+    <p class="example">
+        This is a {{number}}
+    </p>
+</tempalate>
+<script>
+export default{
+    name: "element1",
+	props: {
+        number: {
+            type: number,
+            required: true
+        }
+    },
+    data: () => ({
+        person: {...code}
+    })
+};
+</script>
+<style>
+.example{
+	color: red;
+}
+</style>
+```
+```html
+//将element1.vue文件导入应用并使用
+<div id="app">
+    <element1></element1>
+</div>
+<script>
+import element1 from '这里是element1.vue文件的路径'
+
+new Vue({
+	el: "#app",
+	compontents: {
+		element1
+	}
+})
 </script>
 ```
 
