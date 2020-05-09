@@ -39,6 +39,6 @@ request.onload = function(){
 
 request.send();
 ```
-此时的Ajax传输的json数据为原始数据结构，并非json字符串
+此时的Ajax传输的json数据为json字符串
 
 

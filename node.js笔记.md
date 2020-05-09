@@ -29,18 +29,24 @@
 [npm安装文档](http://caibaojian.com/npm/)
 
 ```js
-//安装package（代码模块）
-npm install XXX //本地安装包
-npm install -g XXX //全局安装包 
-//卸载package（代码模块）
-npm uninstall XXX //本地安装包
-npm uninstall -g XXX //全局安装包 
-//更新package（代码模块）
-npm update -g. //全部更新
-npm update XXX //本地安装包
-npm update -g XXX //全局安装包 
-//
+//package安装至全局
+npm install -g XXX 
+//package安装至本地
+npm install XXX 
+//package安装至本地（上线）
+npm install --save XXX
+//package安装至本地（开发）
+npm install --save-dev XXX
 
+//卸载package（代码模块）
+npm uninstall XXX
+npm uninstall -g XXX
+
+//更新package（代码模块）
+//package全部更新
+npm update -g. 
+npm update XXX 
+npm update -g XXX 
 ```
 
 ## vue项目初始化
